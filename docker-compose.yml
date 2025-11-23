@@ -1,0 +1,40 @@
+services:
+  db:
+    # --- SỬA LỖI TẠI ĐÂY: Dùng bản Postgres có sẵn PGroonga ---
+    image: groonga/pgroonga:latest-alpine-16
+    container_name: teldrive-db
+    restart: always
+    environment:
+      POSTGRES_USER: teldrive
+      POSTGRES_PASSWORD: teldrive_password
+      POSTGRES_DB: teldrive
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    networks:
+      - teldrive-net
+
+  teldrive:
+    image: ghcr.io/tgdrive/teldrive:latest
+    container_name: teldrive-core
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    command: >
+      run
+      --tg-app-id=${TG_APP_ID}
+      --tg-app-hash=${TG_APP_HASH}
+      --db-data-source=${DB_URL}
+      --jwt-secret=${JWT_SECRET}
+      --tg-uploads-encryption-key=${ENCRYPTION_KEY}
+    env_file:
+      - .env
+    volumes:
+      - ./teldrive_data:/root/.teldrive
+    networks:
+      - teldrive-net
+
+networks:
+  teldrive-net:
+    driver: bridge

@@ -1,0 +1,12 @@
+# Bỏ qua file cấu hình mật khẩu
+.env
+hadoop.env
+
+# Bỏ qua thư mục dữ liệu (Nặng GB, không up lên git được)
+pg_data/
+teldrive_data/
+hadoop_data/
+
+# Bỏ qua các file hệ thống
+.DS_Store
+Thumbs.db
