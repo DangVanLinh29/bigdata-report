@@ -3,55 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng thông tin Big Data - Nhóm 4</title>
+    <title>Tài liệu Big Data (Teldrive + Hadoop)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS chung cho giao diện Menu màu sắc */
-        body { background-color: #f4f4f4; font-family: Arial, sans-serif; }
-        .banner { background-color: #ed1c24; color: white; padding: 40px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 0; }
-        .banner-logo { width: 90px; height: 90px; background: white; border-radius: 50%; margin-right: 20px; padding: 5px; }
-        .banner-title h1 { font-weight: 700; text-transform: uppercase; font-size: 2.5rem; margin: 0; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
         
-        /* Grid Menu */
-        .menu-box { color: white; padding: 30px; text-align: center; transition: 0.3s; cursor: pointer; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; }
-        .menu-box:hover { opacity: 0.9; transform: scale(1.02); z-index: 10; box-shadow: 0 0 15px rgba(0,0,0,0.2); }
-        .menu-box i { font-size: 3rem; margin-bottom: 15px; }
-        .menu-box span { font-weight: bold; text-transform: uppercase; font-size: 1.1rem; }
+        /* Banner */
+        .banner { background: linear-gradient(135deg, #b71c1c, #d32f2f); color: white; padding: 50px 0; text-align: center; border-bottom: 5px solid #8e0000; }
+        .banner h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .banner p { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
+
+        /* Menu Grid */
+        .menu-container { margin-top: -30px; padding-bottom: 50px; }
+        .menu-item { text-decoration: none; color: white; display: block; transition: all 0.3s; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 100%; background: #333; position: relative; }
+        .menu-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); z-index: 2; }
         
-        /* Màu sắc */
-        .bg-green { background-color: #8cc63f; }
-        .bg-teal { background-color: #00a99d; }
-        .bg-blue { background-color: #00aeef; }
-        .bg-grey { background-color: #58595b; }
-        .bg-pink { background-color: #ec008c; }
-        .bg-yellow { background-color: #f1c40f; }
+        .menu-content { padding: 30px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 160px; }
+        .menu-content i { font-size: 3rem; margin-bottom: 15px; }
+        .menu-content span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
+
+        /* Colors */
+        .bg-teldrive { background-color: #009688; }
+        .bg-hadoop { background-color: #0288d1; }
+        .bg-mapreduce { background-color: #e91e63; }
+        .bg-github { background-color: #424242; }
+        
+        .footer { margin-top: 50px; padding: 20px; background: #212529; color: #aaa; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="banner">
-        <img src="https://cdn-icons-png.flaticon.com/512/906/906343.png" alt="Logo" class="banner-logo">
-        <div class="banner-title">
-            <h1>HỆ THỐNG BIG DATA</h1>
-            <p class="m-0 fs-5">Giải pháp TeleDrive & Hadoop Cluster</p>
+        <div class="container">
+            <h1>Hướng Dẫn Triển Khai Big Data</h1>
+            <p>Hệ thống lưu trữ phân tán không giới hạn & Xử lý dữ liệu lớn</p>
         </div>
     </div>
 
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <div class="col-md-4 col-6"><a href="index.html" class="menu-box bg-green"><i class="fa fa-home"></i><span>Trang Chủ</span></a></div>
-            <div class="col-md-4 col-6"><a href="teldrive.html" class="menu-box bg-teal"><i class="fa fa-cloud"></i><span>Hướng dẫn TeleDrive</span></a></div>
-            <div class="col-md-4 col-6"><a href="hadoop.html" class="menu-box bg-blue"><i class="fa fa-server"></i><span>Hướng dẫn Hadoop</span></a></div>
-            <div class="col-md-4 col-6"><a href="https://github.com/DangVanLinh29/baocao-bigdata-final" target="_blank" class="menu-box bg-grey"><i class="fab fa-github"></i><span>Mã Nguồn (GitHub)</span></a></div>
-            <div class="col-md-4 col-6"><a href="mapreduce.html" class="menu-box bg-pink"><i class="fa fa-bolt"></i><span>Demo MapReduce</span></a></div>
-            <div class="col-md-4 col-6"><a href="team.html" class="menu-box bg-yellow"><i class="fa fa-users"></i><span>Thành Viên Nhóm</span></a></div>
+    <div class="container menu-container">
+        <div class="row justify-content-center g-4">
+            <div class="col-md-3 col-sm-6">
+                <a href="teldrive.html" class="menu-item bg-teldrive">
+                    <div class="menu-content">
+                        <i class="fa fa-cloud-upload-alt"></i>
+                        <span>Cài đặt TeleDrive</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a href="hadoop.html" class="menu-item bg-hadoop">
+                    <div class="menu-content">
+                        <i class="fa fa-server"></i>
+                        <span>Cài đặt Hadoop</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a href="mapreduce.html" class="menu-item bg-mapreduce">
+                    <div class="menu-content">
+                        <i class="fa fa-bolt"></i>
+                        <span>Demo MapReduce</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <a href="https://github.com/DangVanLinh29/baocao-bigdata-final" target="_blank" class="menu-item bg-github">
+                    <div class="menu-content">
+                        <i class="fab fa-github"></i>
+                        <span>Mã Nguồn</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 
-    <div class="container mt-5 text-center">
-        <h3>Chào mừng đến với trang tài liệu kỹ thuật của Nhóm 4</h3>
-        <p class="text-muted">Vui lòng chọn một mục ở trên để xem hướng dẫn chi tiết.</p>
+    <div class="container mt-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-dark border-bottom pb-2 mb-3">Giới thiệu dự án</h3>
+                <p>Đây là tài liệu kỹ thuật hướng dẫn chi tiết cách xây dựng một hệ thống Big Data hoàn chỉnh trên môi trường Docker.</p>
+                <ul>
+                    <li><strong>Lưu trữ (Storage):</strong> Sử dụng <b>TeleDrive</b> để tận dụng API Telegram làm ổ đĩa mạng không giới hạn dung lượng.</li>
+                    <li><strong>Xử lý (Processing):</strong> Sử dụng <b>Hadoop 3.2.1</b> (YARN & HDFS) để chạy các thuật toán phân tán (MapReduce).</li>
+                </ul>
+                <div class="alert alert-info">
+                    <i class="fa fa-info-circle me-2"></i> Hệ thống đã được kiểm thử thành công trên Windows 11 (WSL 2) và Docker Desktop.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Big Data Project Documentation.
     </div>
 
 </body>
