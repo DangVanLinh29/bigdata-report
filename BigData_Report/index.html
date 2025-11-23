@@ -10,95 +10,97 @@
         body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
         
         /* Banner */
-        .banner { background: linear-gradient(135deg, #b71c1c, #d32f2f); color: white; padding: 50px 0; text-align: center; border-bottom: 5px solid #8e0000; }
-        .banner h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .banner p { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
+        .banner { background: linear-gradient(135deg, #b71c1c, #d32f2f); color: white; padding: 60px 0; text-align: center; border-bottom: 5px solid #8e0000; }
+        .banner h1 { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-size: 2.5rem; }
+        .banner p { font-size: 1.2rem; opacity: 0.9; font-weight: 300; }
 
         /* Menu Grid */
-        .menu-container { margin-top: -30px; padding-bottom: 50px; }
-        .menu-item { text-decoration: none; color: white; display: block; transition: all 0.3s; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 100%; background: #333; position: relative; }
-        .menu-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); z-index: 2; }
+        .menu-container { margin-top: -40px; padding-bottom: 50px; }
+        .menu-item { text-decoration: none; color: white; display: block; transition: all 0.3s; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 100%; background: #333; position: relative; }
+        .menu-item:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); z-index: 2; }
         
-        .menu-content { padding: 30px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 160px; }
-        .menu-content i { font-size: 3rem; margin-bottom: 15px; }
-        .menu-content span { font-weight: 700; text-transform: uppercase; font-size: 1.1rem; }
+        .menu-content { padding: 40px 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; height: 200px; }
+        .menu-content i { font-size: 3.5rem; margin-bottom: 20px; }
+        .menu-content span { font-weight: 700; text-transform: uppercase; font-size: 1.2rem; letter-spacing: 0.5px; }
 
         /* Colors */
         .bg-teldrive { background-color: #009688; }
         .bg-hadoop { background-color: #0288d1; }
-        .bg-mapreduce { background-color: #e91e63; }
         .bg-github { background-color: #424242; }
         
-        .footer { margin-top: 50px; padding: 20px; background: #212529; color: #aaa; text-align: center; }
+        .footer { margin-top: 50px; padding: 30px; background: #212529; color: #aaa; text-align: center; border-top: 5px solid #b71c1c; }
+        .card-intro { border-left: 5px solid #b71c1c; }
     </style>
 </head>
 <body>
 
     <div class="banner">
         <div class="container">
-            <h1>Hướng Dẫn Triển Khai Big Data</h1>
-            <p>Hệ thống lưu trữ phân tán không giới hạn & Xử lý dữ liệu lớn</p>
+            <h1>Hệ Thống Lưu Trữ & Xử Lý Dữ Liệu Lớn</h1>
+            <p>Giải pháp TeleDrive (Storage) kết hợp Hadoop Cluster (Processing)</p>
         </div>
     </div>
 
     <div class="container menu-container">
         <div class="row justify-content-center g-4">
-            <div class="col-md-3 col-sm-6">
+            
+            <div class="col-md-4 col-sm-12">
                 <a href="teldrive.html" class="menu-item bg-teldrive">
                     <div class="menu-content">
                         <i class="fa fa-cloud-upload-alt"></i>
-                        <span>Cài đặt TeleDrive</span>
+                        <span>Hướng Dẫn TeleDrive</span>
                     </div>
                 </a>
             </div>
 
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-12">
                 <a href="hadoop.html" class="menu-item bg-hadoop">
                     <div class="menu-content">
                         <i class="fa fa-server"></i>
-                        <span>Cài đặt Hadoop</span>
+                        <span>Hướng Dẫn Hadoop</span>
                     </div>
                 </a>
             </div>
 
-            <div class="col-md-3 col-sm-6">
-                <a href="mapreduce.html" class="menu-item bg-mapreduce">
-                    <div class="menu-content">
-                        <i class="fa fa-bolt"></i>
-                        <span>Demo MapReduce</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-3 col-sm-6">
-                <a href="https://github.com/DangVanLinh29/bigdata-report" target="_blank" class="menu-item bg-github">
+            <div class="col-md-4 col-sm-12">
+                <a href="https://github.com/DangVanLinh29/baocao-bigdata-final" target="_blank" class="menu-item bg-github">
                     <div class="menu-content">
                         <i class="fab fa-github"></i>
-                        <span>Mã Nguồn</span>
+                        <span>Mã Nguồn Dự Án</span>
                     </div>
                 </a>
             </div>
+
         </div>
     </div>
 
     <div class="container mt-4">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
-                <h3 class="text-dark border-bottom pb-2 mb-3">Giới thiệu dự án</h3>
-                <p>Đây là tài liệu kỹ thuật hướng dẫn chi tiết cách xây dựng một hệ thống Big Data hoàn chỉnh trên môi trường Docker.</p>
-                <ul>
-                    <li><strong>Lưu trữ (Storage):</strong> Sử dụng <b>TeleDrive</b> để tận dụng API Telegram làm ổ đĩa mạng không giới hạn dung lượng.</li>
-                    <li><strong>Xử lý (Processing):</strong> Sử dụng <b>Hadoop 3.2.1</b> (YARN & HDFS) để chạy các thuật toán phân tán (MapReduce).</li>
-                </ul>
-                <div class="alert alert-info">
-                    <i class="fa fa-info-circle me-2"></i> Hệ thống đã được kiểm thử thành công trên Windows 11 (WSL 2) và Docker Desktop.
+        <div class="card shadow-sm border-0 card-intro">
+            <div class="card-body p-5">
+                <h3 class="text-dark mb-4">Tổng quan kiến trúc hệ thống</h3>
+                <p class="lead text-secondary">Dự án này tập trung vào việc triển khai hạ tầng Big Data trên nền tảng Docker, tối ưu hóa chi phí lưu trữ và khả năng mở rộng.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5><i class="fa fa-database text-success me-2"></i> Lưu trữ (Storage Layer)</h5>
+                        <p>Sử dụng <strong>TeleDrive</strong> để kết nối với API của Telegram, biến nền tảng nhắn tin này thành một kho lưu trữ đám mây (Cloud Storage) không giới hạn dung lượng và hoàn toàn miễn phí.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h5><i class="fa fa-cogs text-primary me-2"></i> Xử lý (Processing Layer)</h5>
+                        <p>Sử dụng <strong>Apache Hadoop 3.2.1</strong> vận hành trên các Docker Container độc lập. Hệ thống bao gồm đầy đủ các thành phần: Namenode, Datanode và YARN ResourceManager để thực thi các tác vụ MapReduce.</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning mt-3">
+                    <strong>Yêu cầu kỹ thuật:</strong> Hệ thống cần được triển khai trên máy tính có hỗ trợ ảo hóa (Docker Desktop + WSL 2) và kết nối Internet ổn định.
                 </div>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        &copy; 2025 Big Data Project Documentation.
+        &copy; 2025 Big Data Project Documentation.<br>
+        <small>Triển khai trên nền tảng Docker & GitHub Pages</small>
     </div>
 
 </body>
