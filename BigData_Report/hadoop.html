@@ -2,43 +2,45 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Hướng dẫn Hadoop</title>
+    <title>Hướng dẫn Cài đặt Hadoop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
     <style>
-        body { background: #f4f6f8; }
+        body { background: #f4f6f8; font-family: 'Segoe UI', sans-serif; }
         .header-bar { background: #0288d1; color: white; padding: 15px 0; margin-bottom: 30px; }
         .step-card { background: white; border-radius: 8px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .step-number { background: #0288d1; color: white; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; font-weight: bold; }
-        h2 { font-size: 1.3rem; font-weight: 700; color: #333; display: flex; align-items: center; }
-        img { max-width: 100%; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 10px; }
+        .step-number { background: #0288d1; color: white; width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 15px; font-weight: bold; flex-shrink: 0; font-size: 1.1rem; }
+        h2 { font-size: 1.4rem; font-weight: 700; color: #333; display: flex; align-items: center; margin-bottom: 20px; }
+        h5 { margin-top: 15px; font-weight: 600; color: #555; border-left: 4px solid #0288d1; padding-left: 10px; }
+        img { max-width: 100%; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        code { color: #e83e8c; word-break: break-word; }
+        .note { background: #e1f5fe; border-left: 5px solid #0288d1; padding: 15px; margin: 15px 0; border-radius: 4px; }
     </style>
 </head>
 <body>
 
     <div class="header-bar">
         <div class="container d-flex justify-content-between align-items-center">
-            <h4 class="m-0">CÀI ĐẶT HADOOP CLUSTER</h4>
-            <a href="index.html" class="btn btn-outline-light btn-sm">Quay lại Trang chủ</a>
+            <h4 class="m-0 text-uppercase"><i class="fa fa-server me-2"></i>Triển khai Hadoop Cluster</h4>
+            <div>
+                <a href="index.html" class="btn btn-outline-light btn-sm me-2">Trang chủ</a>
+                <a href="mapreduce.html" class="btn btn-light btn-sm text-primary">Xem Demo MapReduce &rarr;</a>
+            </div>
         </div>
     </div>
 
     <div class="container pb-5">
         
-        <div class="step-card">
-            <h2><span class="step-number">1</span> Kiến trúc Hệ thống</h2>
-            <p>Xây dựng cụm Hadoop 5 Node sử dụng Docker Compose:</p>
-            <ul>
-                <li><strong>Namenode:</strong> Quản lý Metadata (Cổng 9870).</li>
-                <li><strong>Datanode:</strong> Lưu trữ dữ liệu thực tế.</li>
-                <li><strong>ResourceManager:</strong> Quản lý tài nguyên YARN (Cổng 8088).</li>
-                <li><strong>NodeManager:</strong> Thực thi tác vụ trên từng node.</li>
-                <li><strong>HistoryServer:</strong> Lưu nhật ký các Job đã chạy.</li>
-            </ul>
+        <div class="alert alert-primary">
+            <strong>Kiến trúc hệ thống:</strong> Chúng tôi xây dựng cụm Hadoop 3.2.1 gồm 5 Containers (Namenode, Datanode, ResourceManager, NodeManager, HistoryServer) để giả lập môi trường phân tán thực tế.
         </div>
 
         <div class="step-card">
-            <h2><span class="step-number">2</span> File cấu hình (docker-compose.yml)</h2>
+            <h2><span class="step-number">1</span> Thiết lập Cấu hình (Configuration)</h2>
+            <p>Để Hadoop chạy được trên Docker, cần tạo 2 file quan trọng trong thư mục <code>hadoop/</code>.</p>
+
+            <h5>A. File <code>docker-compose.yml</code></h5>
+            <p>Định nghĩa các dịch vụ (Services) và mạng kết nối:</p>
             <pre><code class="language-yaml">version: "3"
 services:
   namenode:
@@ -46,8 +48,8 @@ services:
     container_name: namenode
     restart: always
     ports:
-      - 9870:9870
-      - 9000:9000
+      - 9870:9870  # Giao diện HDFS Web UI
+      - 9000:9000  # Cổng giao tiếp nội bộ
     volumes:
       - ./hadoop_data/namenode:/hadoop/dfs/name
     env_file:
@@ -67,7 +69,7 @@ services:
     container_name: resourcemanager
     restart: always
     ports:
-      - 8088:8088
+      - 8088:8088  # Giao diện YARN Web UI
     env_file:
       - ./hadoop.env
 
@@ -86,20 +88,80 @@ services:
       - 8188:8188
     env_file:
       - ./hadoop.env</code></pre>
+
+            <h5>B. File <code>hadoop.env</code> (Biến môi trường)</h5>
+            <p>Quy định các thông số kỹ thuật cho Cluster (Bắt buộc phải có file này cùng thư mục):</p>
+            <pre><code class="language-ini">CLUSTER_NAME=test
+CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+CORE_CONF_hadoop_http_staticuser_user=root
+HDFS_CONF_dfs_webhdfs_enabled=true
+HDFS_CONF_dfs_permissions_enabled=false
+YARN_CONF_yarn_resourcemanager_hostname=resourcemanager
+YARN_CONF_yarn_resourcemanager_address=resourcemanager:8032</code></pre>
         </div>
 
         <div class="step-card">
-            <h2><span class="step-number">3</span> Kết quả vận hành</h2>
-            <p>Giao diện quản lý HDFS (<code>localhost:9870</code>):</p>
-            <img src="anh1_hadoop.png" alt="HDFS UI">
+            <h2><span class="step-number">2</span> Khởi động Hệ thống</h2>
+            <p>Mở Terminal (PowerShell) tại thư mục chứa file cấu hình và chạy lệnh:</p>
+            <pre><code class="language-bash">docker-compose up -d</code></pre>
             
-            <p class="mt-3">Danh sách các Node đang hoạt động:</p>
-            <img src="anh2_hadoop.png" alt="Active Nodes">
+            <p class="mt-3">Sau khi khởi động xong, kiểm tra trạng thái các Node tại địa chỉ: <code>http://localhost:9870</code></p>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <img src="anh1_hadoop.png" alt="Hadoop Overview">
+                    <p class="text-center text-muted small mt-1"><i>Hình 1: Giao diện quản lý tổng quan HDFS (Overview)</i></p>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <img src="anh2_hadoop.png" alt="Hadoop Datanodes">
+                    <p class="text-center text-muted small mt-1"><i>Hình 2: Danh sách các Datanode đang hoạt động (Live Nodes)</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <h2><span class="step-number">3</span> Quy trình Nạp dữ liệu (Data Ingestion)</h2>
+            <div class="note">
+                Vì Hadoop chạy trong Container cô lập, ta cần quy trình 2 bước để đưa file từ Windows vào HDFS.
+            </div>
+
+            <h5>Bước 3.1: Copy file từ máy thật vào Container NameNode</h5>
+            <pre><code class="language-bash"># Giả sử có file input.txt ở máy thật
+docker cp input.txt namenode:/tmp/input.txt</code></pre>
+
+            <h5>Bước 3.2: Đưa file lên hệ thống phân tán HDFS</h5>
+            <p>Truy cập vào bên trong container và dùng lệnh <code>hdfs dfs -put</code>:</p>
+            <pre><code class="language-bash"># Vào terminal của namenode
+docker exec -it namenode bash
+
+# Tạo thư mục trên HDFS
+hdfs dfs -mkdir -p /user/root/input
+
+# Đẩy file lên
+hdfs dfs -put /tmp/input.txt /user/root/input/
+
+# Kiểm tra kết quả
+hdfs dfs -ls /user/root/input/</code></pre>
+        </div>
+
+        <div class="step-card">
+            <h2><span class="step-number">4</span> Kiểm thử khả năng tính toán (YARN)</h2>
+            <p>Chạy thử thuật toán tính số Pi có sẵn trong thư viện Hadoop để đảm bảo ResourceManager hoạt động tốt.</p>
+            <pre><code class="language-bash">yarn jar /opt/hadoop-3.2.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar pi 2 100</code></pre>
+            
+            <p><strong>Kết quả trả về trên màn hình:</strong></p>
+            <img src="pi_hadoop.png" alt="Kết quả Pi">
+            <p class="text-center text-muted small mt-1"><i>Hình 3: Kết quả tính toán MapReduce thành công</i></p>
         </div>
 
     </div>
 
+    <footer class="bg-dark text-white text-center py-3">
+        <p class="m-0 small">&copy; 2025 Big Data Project Documentation</p>
+    </footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>hljs.highlightAll();</script>
 </body>
 </html>
