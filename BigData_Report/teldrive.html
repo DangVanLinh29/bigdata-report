@@ -9,9 +9,10 @@
         body { background: #f4f6f8; }
         .header-bar { background: #009688; color: white; padding: 15px 0; margin-bottom: 30px; }
         .step-card { background: white; border-radius: 8px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .step-number { background: #009688; color: white; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; font-weight: bold; }
+        .step-number { background: #009688; color: white; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 10px; font-weight: bold; flex-shrink: 0; }
         h2 { font-size: 1.3rem; font-weight: 700; color: #333; display: flex; align-items: center; }
         img { max-width: 100%; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 10px; }
+        ol li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -26,17 +27,39 @@
     <div class="container pb-5">
         
         <div class="step-card">
-            <h2><span class="step-number">1</span> Chuẩn bị Môi trường</h2>
-            <p>Tạo thư mục dự án và cấu trúc file như sau:</p>
+            <h2><span class="step-number">1</span> Chuẩn bị Thư mục</h2>
+            <p>Tạo cấu trúc thư mục dự án trên máy tính:</p>
             <pre><code class="language-bash">/PTDLL
-├── teldrive_data/      (Tự động tạo)
-├── pg_data/            (Tự động tạo)
+├── teldrive_data/      (Tự động tạo khi chạy)
+├── pg_data/            (Tự động tạo khi chạy)
 └── docker-compose.yml  (File cấu hình chính)</code></pre>
         </div>
 
         <div class="step-card">
-            <h2><span class="step-number">2</span> Cấu hình Docker Compose</h2>
-            <p>Tạo file <code>docker-compose.yml</code>. Lưu ý sử dụng image <code>groonga/pgroonga</code> cho Database để hỗ trợ tìm kiếm file tốt nhất.</p>
+            <h2><span class="step-number">2</span> Lấy API Credentials từ Telegram</h2>
+            <p>Để TeleDrive kết nối được với tài khoản Telegram, bạn cần đăng ký ứng dụng:</p>
+            <ol>
+                <li>Truy cập: <a href="https://my.telegram.org" target="_blank">https://my.telegram.org</a></li>
+                <li>Nhập số điện thoại của bạn và mã xác nhận được gửi về Telegram.</li>
+                <li>Chọn mục <strong>API development tools</strong>.</li>
+                <li>Điền thông tin vào form:
+                    <ul>
+                        <li><strong>App title:</strong> Đặt tên bất kỳ (ví dụ: <code>MyBigDataDrive</code>).</li>
+                        <li><strong>Short name:</strong> Đặt tên ngắn (ví dụ: <code>mybigdatadrive</code>).</li>
+                        <li><strong>Platform:</strong> Chọn <code>Desktop</code>.</li>
+                    </ul>
+                </li>
+                <li>Bấm <strong>Create application</strong>.</li>
+                <li>Copy 2 dòng quan trọng: <strong>App api_id</strong> và <strong>App api_hash</strong>.</li>
+            </ol>
+            <div class="alert alert-warning">
+                <i class="fa fa-exclamation-triangle"></i> <strong>Lưu ý:</strong> Giữ bí mật 2 mã này, không chia sẻ cho người lạ.
+            </div>
+        </div>
+
+        <div class="step-card">
+            <h2><span class="step-number">3</span> Cấu hình Docker Compose</h2>
+            <p>Tạo file <code>docker-compose.yml</code> và điền API ID/Hash bạn vừa lấy được vào:</p>
             <pre><code class="language-yaml">version: '3.9'
 
 services:
@@ -61,7 +84,7 @@ services:
       - db
     ports:
       - "8080:8080"
-    # Sử dụng command để truyền biến môi trường (tránh lỗi trên Windows)
+    # Thay thế YOUR_APP_ID và YOUR_APP_HASH bằng số bạn vừa lấy ở Bước 2
     command: >
       run
       --tg-app-id=YOUR_APP_ID
@@ -80,7 +103,7 @@ networks:
         </div>
 
         <div class="step-card">
-            <h2><span class="step-number">3</span> Khởi chạy & Kết quả</h2>
+            <h2><span class="step-number">4</span> Khởi chạy & Kết quả</h2>
             <p>Chạy lệnh sau trong Terminal:</p>
             <pre><code class="language-bash">docker-compose up -d</code></pre>
             <p>Sau đó truy cập <code>http://localhost:8080</code>. Đăng nhập và vào <strong>Settings -> Channels</strong> để chọn kênh lưu trữ mặc định.</p>
