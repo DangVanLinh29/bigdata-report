@@ -3,204 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng dẫn TeleDrive & Hadoop - Nhóm 4</title>
+    <title>Cổng thông tin Big Data - Nhóm 4</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS chung cho giao diện Menu màu sắc */
         body { background-color: #f4f4f4; font-family: Arial, sans-serif; }
+        .banner { background-color: #ed1c24; color: white; padding: 40px 0; display: flex; align-items: center; justify-content: center; margin-bottom: 0; }
+        .banner-logo { width: 90px; height: 90px; background: white; border-radius: 50%; margin-right: 20px; padding: 5px; }
+        .banner-title h1 { font-weight: 700; text-transform: uppercase; font-size: 2.5rem; margin: 0; }
         
-        /* Top Nav */
-        .top-nav { background-color: #2c3e50; padding: 5px 0; }
-        .top-nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 14px; font-weight: bold; text-transform: uppercase; }
-        .top-nav a:hover { color: #f1c40f; }
-
-        /* Banner Đỏ */
-        .banner { background-color: #ed1c24; color: white; padding: 30px 0; display: flex; align-items: center; justify-content: center; }
-        .banner-logo { width: 80px; height: 80px; background: white; border-radius: 50%; margin-right: 20px; padding: 5px; }
-        .banner-title h1 { font-weight: 700; margin: 0; text-transform: uppercase; font-size: 2.5rem; }
-        .banner-title p { margin: 0; font-size: 1.1rem; opacity: 0.9; }
-
-        /* Colorful Menu Grid */
-        .color-menu { margin-top: 0; }
-        .menu-box { color: white; padding: 20px; text-align: center; transition: 0.3s; cursor: pointer; height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; }
-        .menu-box:hover { opacity: 0.9; transform: translateY(-2px); }
-        .menu-box i { font-size: 2rem; margin-bottom: 10px; }
-        .menu-box span { font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
+        /* Grid Menu */
+        .menu-box { color: white; padding: 30px; text-align: center; transition: 0.3s; cursor: pointer; height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-decoration: none; }
+        .menu-box:hover { opacity: 0.9; transform: scale(1.02); z-index: 10; box-shadow: 0 0 15px rgba(0,0,0,0.2); }
+        .menu-box i { font-size: 3rem; margin-bottom: 15px; }
+        .menu-box span { font-weight: bold; text-transform: uppercase; font-size: 1.1rem; }
         
+        /* Màu sắc */
         .bg-green { background-color: #8cc63f; }
         .bg-teal { background-color: #00a99d; }
         .bg-blue { background-color: #00aeef; }
         .bg-grey { background-color: #58595b; }
         .bg-pink { background-color: #ec008c; }
         .bg-yellow { background-color: #f1c40f; }
-
-        /* Main Content & Sidebar */
-        .main-container { margin-top: 20px; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        
-        /* Section Headers */
-        .section-header { background-color: #f1c40f; padding: 10px 15px; color: #333; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; border-left: 5px solid #d35400; }
-        
-        /* Sidebar */
-        .sidebar-box { background: #fff; margin-bottom: 20px; border: 1px solid #ddd; }
-        .sidebar-header { background: #2c3e50; color: white; padding: 10px; text-align: center; font-weight: bold; text-transform: uppercase; }
-        .sidebar-list { list-style: none; padding: 0; margin: 0; }
-        .sidebar-list li { border-bottom: 1px solid #eee; }
-        .sidebar-list li a { display: block; padding: 10px 15px; color: #333; text-decoration: none; }
-        .sidebar-list li a:hover { background-color: #f9f9f9; color: #ed1c24; }
-
-        /* Code Block */
-        pre { background: #2d2d2d; color: #ccc; padding: 15px; border-radius: 5px; overflow-x: auto; }
-        .img-demo { width: 100%; border: 1px solid #ddd; padding: 5px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav text-center">
-        <a href="#"><i class="fa fa-home"></i> Trang chủ</a>
-        <a href="#teldrive">TeleDrive</a>
-        <a href="#hadoop">Hadoop 3.0</a>
-        <a href="https://github.com/DangVanLinh29" target="_blank">GitHub</a>
-        <a href="#about">Về chúng tôi</a>
-    </div>
-
     <div class="banner">
         <img src="https://cdn-icons-png.flaticon.com/512/906/906343.png" alt="Logo" class="banner-logo">
         <div class="banner-title">
-            <h1>HƯỚNG DẪN TELEDRIVE & HADOOP</h1>
-            <p>Giải pháp lưu trữ đám mây không giới hạn & Xử lý dữ liệu lớn</p>
+            <h1>HỆ THỐNG BIG DATA</h1>
+            <p class="m-0 fs-5">Giải pháp TeleDrive & Hadoop Cluster</p>
         </div>
     </div>
 
     <div class="container-fluid p-0">
         <div class="row g-0">
-            <div class="col-md-2 col-4"><a href="#intro" class="menu-box bg-green"><i class="fa fa-info-circle"></i><span>Tổng quan</span></a></div>
-            <div class="col-md-2 col-4"><a href="#teldrive" class="menu-box bg-teal"><i class="fa fa-cloud"></i><span>TeleDrive</span></a></div>
-            <div class="col-md-2 col-4"><a href="#hadoop" class="menu-box bg-blue"><i class="fa fa-server"></i><span>Hadoop 3.0</span></a></div>
-            <div class="col-md-2 col-4"><a href="https://github.com" target="_blank" class="menu-box bg-grey"><i class="fab fa-github"></i><span>GitHub Code</span></a></div>
-            <div class="col-md-2 col-4"><a href="#demo" class="menu-box bg-pink"><i class="fa fa-bolt"></i><span>Demo MapReduce</span></a></div>
-            <div class="col-md-2 col-4"><a href="#about" class="menu-box bg-yellow"><i class="fa fa-users"></i><span>Về Nhóm 4</span></a></div>
+            <div class="col-md-4 col-6"><a href="index.html" class="menu-box bg-green"><i class="fa fa-home"></i><span>Trang Chủ</span></a></div>
+            <div class="col-md-4 col-6"><a href="teldrive.html" class="menu-box bg-teal"><i class="fa fa-cloud"></i><span>Hướng dẫn TeleDrive</span></a></div>
+            <div class="col-md-4 col-6"><a href="hadoop.html" class="menu-box bg-blue"><i class="fa fa-server"></i><span>Hướng dẫn Hadoop</span></a></div>
+            <div class="col-md-4 col-6"><a href="https://github.com/DangVanLinh29/baocao-bigdata-final" target="_blank" class="menu-box bg-grey"><i class="fab fa-github"></i><span>Mã Nguồn (GitHub)</span></a></div>
+            <div class="col-md-4 col-6"><a href="mapreduce.html" class="menu-box bg-pink"><i class="fa fa-bolt"></i><span>Demo MapReduce</span></a></div>
+            <div class="col-md-4 col-6"><a href="team.html" class="menu-box bg-yellow"><i class="fa fa-users"></i><span>Thành Viên Nhóm</span></a></div>
         </div>
     </div>
 
-    <div class="container mt-4 mb-5">
-        <div class="row">
-            
-            <div class="col-md-9">
-                <div class="main-container">
-                    
-                    <div id="intro">
-                        <div class="section-header">TỔNG QUAN VỀ DỰ ÁN</div>
-                        <p class="lead">Chào mừng bạn đến với hệ thống hướng dẫn triển khai và vận hành TeleDrive kết hợp Hadoop!</p>
-                        <p>Dự án này nhằm mục đích tận dụng API của Telegram để làm không gian lưu trữ dữ liệu lớn (Big Data Storage), sau đó sử dụng cụm máy chủ Hadoop Cluster để phân tích dữ liệu đó.</p>
-                        <div class="alert alert-info">
-                            <strong>Mục tiêu:</strong> Xây dựng giải pháp Big Data chi phí thấp (0 đồng cho lưu trữ).
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div id="teldrive">
-                        <div class="section-header">1. HƯỚNG DẪN CÀI ĐẶT TELEDRIVE</div>
-                        <p>TeleDrive đóng vai trò là lớp lưu trữ (Storage Layer). Dưới đây là cấu hình Docker Compose để triển khai.</p>
-                        
-                        <h5>Cấu hình <code>docker-compose.yml</code></h5>
-                        <pre>
-version: '3.9'
-services:
-  teldrive:
-    image: ghcr.io/tgdrive/teldrive:latest
-    command: >
-      run
-      --tg-app-id=YOUR_APP_ID
-      --tg-app-hash=YOUR_APP_HASH
-      --jwt-secret="secret"
-      --tg-uploads-encryption-key="khoa_bao_mat_32_ky_tu"
-    ports:
-      - "8080:8080"
-    # ... (Các cấu hình khác)
-                        </pre>
-                        
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <img src="anh1_teldrive.png" class="img-demo" alt="Giao diện Teldrive">
-                                <p class="text-center text-muted"><i>Hình 1: Giao diện quản lý file</i></p>
-                            </div>
-                            <div class="col-md-6">
-                                <img src="anh2_teldrive.png" class="img-demo" alt="Cấu hình kênh">
-                                <p class="text-center text-muted"><i>Hình 2: Cấu hình kênh lưu trữ</i></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div id="hadoop">
-                        <div class="section-header">2. HỆ THỐNG HADOOP CLUSTER</div>
-                        <p>Chúng tôi sử dụng phiên bản Hadoop 3.2.1 chạy trên nền tảng Docker để xử lý dữ liệu.</p>
-                        <ul>
-                            <li><strong>Namenode:</strong> Quản lý metadata.</li>
-                            <li><strong>Datanode:</strong> Lưu trữ block dữ liệu.</li>
-                            <li><strong>ResourceManager (YARN):</strong> Quản lý tài nguyên tính toán.</li>
-                        </ul>
-
-                        <div class="text-center">
-                            <img src="anh1_hadoop.png" class="img-demo" style="max-width: 80%;" alt="Hadoop Nodes">
-                            <p class="text-muted"><i>Hình 3: Trạng thái các Node trong cụm Hadoop</i></p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div id="demo">
-                        <div class="section-header">3. KẾT QUẢ THỰC NGHIỆM (MAPREDUCE)</div>
-                        <p>Chạy thử nghiệm bài toán tính số Pi (Monte Carlo) trên YARN Cluster.</p>
-                        <div class="alert alert-success">
-                            <strong>Lệnh thực thi:</strong> <code>yarn jar hadoop-mapreduce-examples.jar pi 2 100</code>
-                        </div>
-                        <img src="pi_hadoop.png" class="img-demo" alt="Kết quả Pi">
-                        <p class="text-center text-muted"><i>Hình 4: Kết quả tính toán trả về trên Terminal</i></p>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Tìm kiếm...">
-                </div>
-
-                <div class="sidebar-box">
-                    <div class="sidebar-header">CHỦ ĐỀ</div>
-                    <ul class="sidebar-list">
-                        <li><a href="#intro">Giới thiệu chung</a></li>
-                        <li><a href="#teldrive">Triển khai TeleDrive</a></li>
-                        <li><a href="#hadoop">Vận hành Hadoop</a></li>
-                        <li><a href="#demo">Chạy MapReduce</a></li>
-                        <li><a href="#">Khắc phục lỗi</a></li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-box">
-                    <div class="sidebar-header bg-warning text-dark">THÀNH VIÊN NHÓM 4</div>
-                    <div class="p-3">
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-user me-2"></i> Nguyễn Văn A</li>
-                            <li><i class="fa fa-user me-2"></i> Trần Thị B</li>
-                            <li><i class="fa fa-user me-2"></i> Lê Văn C</li>
-                            <li><i class="fa fa-user me-2"></i> Phạm Văn D</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <img src="https://via.placeholder.com/300x400?text=Banner+Quang+Cao" class="img-fluid w-100">
-
-            </div>
-        </div>
+    <div class="container mt-5 text-center">
+        <h3>Chào mừng đến với trang tài liệu kỹ thuật của Nhóm 4</h3>
+        <p class="text-muted">Vui lòng chọn một mục ở trên để xem hướng dẫn chi tiết.</p>
     </div>
-
-    <footer class="bg-dark text-white text-center py-3">
-        <p class="m-0">&copy; 2025 Big Data Project - Group 4. All rights reserved.</p>
-    </footer>
 
 </body>
 </html>
