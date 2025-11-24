@@ -5,6 +5,7 @@
     <title>Hướng dẫn Cài đặt Hadoop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background: #f4f6f8; font-family: 'Segoe UI', sans-serif; }
         .header-bar { background: #0288d1; color: white; padding: 15px 0; margin-bottom: 30px; }
@@ -15,6 +16,11 @@
         img { max-width: 100%; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         code { color: #e83e8c; word-break: break-word; }
         .note { background: #e1f5fe; border-left: 5px solid #0288d1; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        
+        /* Style cho phần Troubleshooting */
+        .error-box { border: 1px solid #f5c6cb; background-color: #f8d7da; border-radius: 5px; padding: 15px; margin-bottom: 15px; }
+        .error-title { color: #721c24; font-weight: bold; display: flex; align-items: center; }
+        .error-fix { background-color: #fff; padding: 10px; border-radius: 4px; margin-top: 10px; border-left: 3px solid #28a745; }
     </style>
 </head>
 <body>
@@ -24,7 +30,6 @@
             <h4 class="m-0 text-uppercase"><i class="fa fa-server me-2"></i>Triển khai Hadoop Cluster</h4>
             <div>
                 <a href="index.html" class="btn btn-outline-light btn-sm me-2">Trang chủ</a>
-                <a href="mapreduce.html" class="btn btn-light btn-sm text-primary">Xem Demo MapReduce &rarr;</a>
             </div>
         </div>
     </div>
@@ -154,6 +159,37 @@ hdfs dfs -ls /user/root/input/</code></pre>
             <p class="text-center text-muted small mt-1"><i>Hình 3: Kết quả tính toán MapReduce thành công</i></p>
         </div>
 
+        <div class="step-card" style="border-top: 5px solid #dc3545;">
+            <h2 class="text-danger"><i class="fa fa-bug me-2"></i>Các Lỗi Thường Gặp & Cách Khắc Phục</h2>
+            
+            <div class="error-box">
+                <div class="error-title"><i class="fa fa-exclamation-triangle me-2"></i> Lỗi "NameNode is in safe mode"</div>
+                <p class="mb-1">Hệ thống không cho phép ghi/xóa file, báo đang ở chế độ an toàn.</p>
+                <div class="error-fix">
+                    <strong>Cách sửa:</strong> Chạy lệnh tắt chế độ Safe Mode trong container namenode:
+                    <pre class="m-0 mt-2"><code class="language-bash">hdfs dfsadmin -safemode leave</code></pre>
+                </div>
+            </div>
+
+            <div class="error-box">
+                <div class="error-title"><i class="fa fa-exclamation-triangle me-2"></i> Lỗi "Connection Refused"</div>
+                <p class="mb-1">Không thể kết nối tới ResourceManager hoặc NodeManager khi chạy Job.</p>
+                <div class="error-fix">
+                    <strong>Cách sửa:</strong> Kiểm tra lại trạng thái Docker. Thường do container bị tắt đột ngột.
+                    <pre class="m-0 mt-2"><code class="language-bash">docker-compose restart</code></pre>
+                </div>
+            </div>
+
+            <div class="error-box">
+                <div class="error-title"><i class="fa fa-exclamation-triangle me-2"></i> Lỗi "Input path does not exist"</div>
+                <p class="mb-1">Chương trình báo không tìm thấy file đầu vào để xử lý.</p>
+                <div class="error-fix">
+                    <strong>Cách sửa:</strong> Kiểm tra lại đường dẫn trên HDFS (chú ý phân biệt chữ hoa/thường). Dùng lệnh <code>hdfs dfs -ls /</code> để soi lại cấu trúc thư mục.
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
     <footer class="bg-dark text-white text-center py-3">
@@ -161,7 +197,6 @@ hdfs dfs -ls /user/root/input/</code></pre>
     </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>hljs.highlightAll();</script>
 </body>
 </html>
